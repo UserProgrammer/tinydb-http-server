@@ -50,6 +50,7 @@ class WebRequestHandler(BaseHTTPRequestHandler):
 
     def generate_201_response(self):
         self.send_response(204)
+        self.end_headers()
 
     def do_GET(self):
         match self.url.path:
@@ -65,7 +66,7 @@ class WebRequestHandler(BaseHTTPRequestHandler):
             case "/insert":
                 payload = self.post_data.decode("utf_8")
                 insert(json.loads(payload))
-                self.generate_201_response
+                self.generate_201_response()
             case _:
                 self.generate_200_response({"message": "Request made with POST method"})
 
